@@ -4,7 +4,7 @@
 Summary:	Erlang bindings for systemd-notify subsystem
 Name:		erlang-sd_notify
 Version:	0.1
-Release:	1
+Release:	2
 License:	MIT
 Group:		Development/Languages
 Source0:	https://github.com/lemenkov/erlang-sd_notify/tarball/%{version}/%{name}-%{version}.tar.bz2
