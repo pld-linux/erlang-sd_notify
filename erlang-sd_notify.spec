@@ -4,7 +4,7 @@
 Summary:	Erlang bindings for systemd-notify subsystem
 Name:		erlang-sd_notify
 Version:	0.1
-Release:	2
+Release:	3
 License:	MIT
 Group:		Development/Languages
 Source0:	https://github.com/lemenkov/erlang-sd_notify/tarball/%{version}/%{name}-%{version}.tar.bz2
@@ -26,7 +26,7 @@ mv lemenkov-erlang-sd_notify-*/* .
 %build
 %{__make} \
 	CFLAGS="%{rpmcflags}" \
-	LDFLAGS="%{rpmldflags} -lsystemd-daemon" \
+	LDFLAGS="%{rpmldflags} -lsystemd" \
 	REBAR=%{_bindir}/rebar \
 	REBAR_FLAGS="-v"
 
