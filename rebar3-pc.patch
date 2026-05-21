@@ -1,0 +1,12 @@
+--- erlang-sd_notify-0.10/rebar.config.orig	2016-06-26 09:44:16.000000000 +0200
++++ erlang-sd_notify-0.10/rebar.config	2026-05-21 01:23:58.846446968 +0200
+@@ -1,3 +1,9 @@
++{plugins, [pc]}.
++
+ {port_env, [{"LDFLAGS", "$LDFLAGS -lsystemd"}]}.
+
++{port_specs, [{"priv/sd_notify_drv.so", ["c_src/*.c"]}]}.
++
++{provider_hooks, [{post, [{compile, {pc, compile}}, {clean, {pc, clean}}]}]}.
++
+ {erl_opts, [debug_info, warnings_as_errors]}.

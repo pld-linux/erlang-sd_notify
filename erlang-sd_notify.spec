@@ -3,14 +3,16 @@
 
 Summary:	Erlang bindings for systemd-notify subsystem
 Name:		erlang-sd_notify
-Version:	0.1
-Release:	3
+Version:	0.10
+Release:	1
 License:	MIT
 Group:		Development/Languages
 Source0:	https://github.com/lemenkov/erlang-sd_notify/tarball/%{version}/%{name}-%{version}.tar.bz2
-# Source0-md5:	c271c733a9ff626932961ba69fe6b0c6
+# Source0-md5:	d9382f271a73dc830ec6c12a8ba8e943
+Patch0:		rebar3-pc.patch
 URL:		https://support.process-one.net/doc/display/EXMPP/exmpp+home
-BuildRequires:	erlang-rebar
+BuildRequires:	erlang-rebar3
+BuildRequires:	erlang-rebar3-pc
 BuildRequires:	systemd-devel
 Requires:	erlang
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -22,22 +24,22 @@ Erlang bindings for systemd-notify subsystem.
 %setup -qc
 mv lemenkov-erlang-sd_notify-*/* .
 %{__rm} -r lemenkov-erlang-sd_notify-*
+%patch -P0 -p1
 
 %build
-%{__make} \
-	CFLAGS="%{rpmcflags}" \
-	LDFLAGS="%{rpmldflags} -lsystemd" \
-	REBAR=%{_bindir}/rebar \
-	REBAR_FLAGS="-v"
+export REBAR_OFFLINE=1
+export CFLAGS="%{rpmcflags}"
+export LDFLAGS="%{rpmldflags}"
+rebar3 compile
 
 %if %{with tests}
-%{__make} test
+rebar3 eunit
 %endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_libdir}/erlang/lib/sd_notify-%{version}/{priv,ebin}
-cp -p ebin/* $RPM_BUILD_ROOT%{_libdir}/erlang/lib/sd_notify-%{version}/ebin
+cp -p _build/default/lib/sd_notify/ebin/* $RPM_BUILD_ROOT%{_libdir}/erlang/lib/sd_notify-%{version}/ebin
 cp -p priv/* $RPM_BUILD_ROOT%{_libdir}/erlang/lib/sd_notify-%{version}/priv
 
 %clean
