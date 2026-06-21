@@ -8,7 +8,7 @@ Release:	1
 License:	MIT
 Group:		Development/Languages
 Source0:	https://github.com/lemenkov/erlang-sd_notify/tarball/%{version}/%{name}-%{version}.tar.bz2
-# Source0-md5:	d9382f271a73dc830ec6c12a8ba8e943
+# Source0-md5:	5c29bc365a81242fa1f32c9cb3547c70
 Patch0:		rebar3-pc.patch
 URL:		https://support.process-one.net/doc/display/EXMPP/exmpp+home
 BuildRequires:	erlang-rebar3
